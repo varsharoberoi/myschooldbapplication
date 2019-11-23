@@ -1,0 +1,211 @@
+﻿@model IEnumerable<myschooldbapplication.Models.ViewModel.AdPay>
+@{
+    ViewData["Title"] = "AdmissionPay";
+}
+<script type="text/javascript">
+    function paytable(res)
+    {
+      //  alert(res);
+        info = "#tabid" + res;
+        $(info).show();
+       // $("#"+res).show();
+
+    }
+</script>
+<h2>AdmissionPay</h2>
+
+<partial name="SearchView" model="new myschooldbapplication.Models.ViewModel.UserSearch()" />
+
+<table class="table table-bordered">
+
+    @{ int x = 0, x1 = 0, x2 = 0;}
+
+    @foreach (var item1 in Model)
+    {
+        <tr>
+            <td>
+                <table class="table table-condensed">
+                    <tr>
+                        <th>AdmissionID</th>
+                        <th>StudentName</th>
+                        <th>Standards</th>
+                        <th>Total Fees</th>
+                        <th>Paid Amount</th>
+                        <th>Pending Amount</th>
+                        </tr>
+                    <tr>
+                       
+                        <td> @item1.Admission1.AdId</td>
+                        
+                        <td>   @Html.DisplayFor(modelItem => item1.Admission1.St.StName)</td>
+                    
+                        <td> @item1.Admission1.Std.Stname</td>
+                        <td>@item1.Admission1.Totalfees</td>
+                        <td>@item1.Admission1.PaidAmount
+                        </td>
+                        <td>@item1.Admission1.Pendingamt</td>
+                    </tr>
+
+
+
+                </table>
+            </td>
+
+            @{
+                x += item1.Admission1.Pendingamt.Value;
+                x1 += item1.Admission1.Totalfees.Value;
+                x2 += item1.Admission1.PaidAmount.Value;
+            }
+        </tr>
+        <tr>
+            @*<td>@item1.Admission1.</td>
+                <td>@item1.Admission1.Std.Stname</td>*@
+            <td>
+                @{ string name1 = "tabid" + item1.Admission1.AdId;}
+                <input type="button" value="Payment Details" onclick="paytable(@item1.Admission1.AdId)" />
+                <form asp-route-ID1="@item1.Admission1.AdId" asp-action="printreceipt" method="post" asp-controller="Admission">
+<input type="submit"  value="Print Receipt" />
+</form>
+              
+                <table style="display:none" id="@name1" class="table table-bordered">
+                    <tr>
+                        <th>PaymentDate</th>
+                        <th>Payment Status</th>
+                        <th>Term</th>
+                        <th>Term Amount</th>
+                        <th>Term Date</th>
+                    </tr>
+                    @foreach (Admissiopay item2 in item1.ListAdmissiopay)
+                    {
+                        if (item2.Paystatus is null || item2.Paystatus == false)
+                        {
+                    <tr class="danger">
+                        @*@{
+        if (item2.PayDate is null)
+        {
+            <td>Null</td>
+        }
+        else
+        {
+            <td>@item2.PayDate</td>
+        }
+        if (item2.Paystatus is null)
+        {
+            <td>null</td>
+        }
+        else
+        {
+            <td class="success">@item2.Paystatus</td>
+        }*@
+                        @*//                                    var routeValues = new ViewDataDictionary {
+            //                { ViewBag["ID"],student.StId},
+            //  { ViewBag[,student.StName
+            //                }
+            //};
+
+
+        }*@
+                       @if (item2.PayDate is null)
+                        {
+                        <td>Null</td>
+                        }
+                        else
+                        {
+                        <td>@item2.PayDate.Value.ToLongDateString()</td>
+                        }
+                       @if (item2.Paystatus is null)
+                        {
+                        <td>null</td>
+                        }
+                        else
+                        {
+                        <td class="danger">@item2.Paystatus</td>
+                        }
+
+                        <td>@item2.AdT.Term</td>
+                        <td>@item2.AdT.TermAmount</td>
+                        <td>@item2.AdT.TermDate.Value.ToLongDateString()</td>
+
+
+                        @*<td>
+
+        @*<partial name="myview" model="item2" />
+
+</td>*@
+                                @*<td>@Html.ActionLink("Edit", "Edit", "Admissiopays", new { id = item2.AdId, id1 = item2.AdTId }) |</td>*@
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="success">
+                                @{
+                                    if (item2.PayDate is null)
+                                    {
+                                        <td>Null</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@item2.PayDate.Value.ToLongDateString()</td>
+                                    }
+                                    if (item2.Paystatus is null)
+                                    {
+                                        <td>null</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="success">@item2.Paystatus</td>
+                                    }
+                                }
+
+
+                                <td>@item2.AdT.Term</td>
+                                <td>@item2.AdT.TermAmount</td>
+                                <td>@item2.AdT.TermDate.Value.ToLongDateString()</td>
+                            </tr>
+                        }
+
+                    }
+                </table>
+                   
+            </td>
+            </tr>
+                  <tr>
+                      <td> <table style="display:none" class="table table-bordered">
+                    <tr>
+                        <td>Total Fees</td>
+                        <td>@item1.Admission1.Totalfees</td>
+                    </tr>
+                    <tr>
+                        <td>Paid Amount</td>
+                        <td>@item1.Admission1.PaidAmount</td>
+                    </tr>
+
+                    <tr>
+                        <td>Pending Amount</td>
+                        <td>@item1.Admission1.Pendingamt</td>
+                    </tr>
+
+                </table>
+                      </td>
+                      </tr>
+           
+    }
+</table>
+<table class="table table-bordered">
+    <tr>
+        <td>
+           
+                    Expected Collected</td>
+                    <td>@x1</td>
+                    <td colspan="1">Pending Amount</td>
+                    <td>
+                        @x
+                    </td>
+                    <td>Over All Paid</td>
+                    <td>@x2</td>
+            
+      
+    </tr>
+
+
+</table>

@@ -1,0 +1,78 @@
+﻿@model myschooldbapplication.Models.Student
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Student</h4>
+<hr />
+<div class="container">
+    <div class="col-md-5">
+
+        <form class="form-horizontal" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger col-sm-offset-2 col-sm-10"></div>
+
+            <div class="form-group">
+                <label asp-for="StName" value="Student Name" class="control-label col-sm-2"></label>
+                <div class="col-sm-10">
+                    <input asp-for="StName" class="form-control" />
+                    <span asp-validation-for="StName" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Dob" value="Student Name" class="control-label col-sm-2"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Dob" class="form-control" />
+                    <span asp-validation-for="Dob" class="text-danger"></span>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentName" value="Parent Name" class="control-label col-sm-2"></label>
+                <div class="col-sm-10">
+                    <input asp-for="ParentName" class="form-control" />
+                    <span asp-validation-for="ParentName" class="text-danger"></span>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentMobile" value="Student Mobile" class="control-label col-sm-2"></label>
+                <div class="col-sm-10">
+                    <input asp-for="ParentMobile" class="form-control" />
+
+                    <span asp-validation-for="ParentMobile" class="text-danger"></span>
+                </div>
+
+            </div>
+          
+            <div class="form-group">
+                <label asp-for="EmailId" value="Email ID" class="control-label col-sm-2"></label>
+                <div class="col-sm-10">
+                    <input asp-for="EmailId" class="form-control" />
+
+                    <span asp-validation-for="EmailId" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">Insert Student</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

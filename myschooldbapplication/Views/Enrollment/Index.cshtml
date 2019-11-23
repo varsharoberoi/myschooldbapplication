@@ -1,0 +1,132 @@
+﻿@model myschooldbapplication.Models.Admission1
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @foreach (var item in Model.Admissiopay)
+    {
+        @Html.DisplayNameFor(model => item.PayDate)
+    }
+    <div>
+        <h4>Admission1</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FeeYear)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FeeYear)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PaidAmount)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PaidAmount)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Totalfees)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Totalfees)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Pendingamt)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Pendingamt)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FT)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FT.FTId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.St)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.St.EmailId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Std)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Std.StdId)
+            </dd>
+        </dl>
+    </div>
+          <table class="table table-condensed">
+                        <tr style="height:20px">
+                            <td align="center" colspan="5"><h1>Payment Details</h1></td>
+                        </tr>
+                        <tr>
+                            <th>Term</th>
+                            <th>Term Amount</th>
+                            <th>Term Date</th>
+                            <th>Payment Date</th>
+                            <th>Payment Status</th>
+                        </tr>
+                        @foreach (var item in Model.Admissiopay)
+                        {
+
+                            <tr>
+                                <td>
+                                    @item.AdT.Term
+                                </td>
+                                <td>
+                                    @item.AdT.TermAmount
+                                </td>
+
+                                @{
+                                    if (item.PayDate != null)
+                                    {
+                                        DateTime dt = item.PayDate.Value;
+                                        string pdate = dt.ToShortDateString();
+                                        <td>@pdate</td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    if (item.AdT.TermDate != null)
+                                    {
+                                        DateTime dt1 = item.AdT.TermDate.Value;
+                                        string tdate = dt1.ToLongDateString();
+                                        <td>@tdate</td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    if (item.Paystatus != null)
+                                    {
+                                        if (item.Paystatus.Value == true)
+                                        {
+                                            <td><b>Paid</b></td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td><b>Payment Due</b></td>
+                                    }
+                                }
+
+
+                            </tr>
+                        }
+                    </table>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.AdId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</body>
+</html>

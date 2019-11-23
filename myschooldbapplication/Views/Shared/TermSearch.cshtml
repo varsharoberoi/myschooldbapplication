@@ -1,0 +1,61 @@
+﻿@model myschooldbapplication.Models.ViewModel.collectionsearchmodel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<script type="text/javascript">
+    function TypeSelected() {
+        var i = $("#Type").val();
+        var url = '@Url.Content("~/")' + "AdTypeFees/GetFee";
+
+        $.getJSON(url, { id: i }, function (data) {
+               
+            var items = '';
+            $("#termdata").empty();
+            items += "<option>Please select one </option>";
+         $.each(data,  function (i, info1) {
+                        items += "<option value='" + info1.adTId + "'>" + info1.term + "</option>";
+                    });
+            $('#termdata').html(items);
+
+
+                });
+    }
+     function getFTID() {
+        var i = $("#FeeYear").val();        
+        var url = '@Url.Content("~/")' + "FeeTypes/GetFT";
+     
+        $.getJSON(url, { year: i }, function (data) {
+            var ddltype = $("#Type");
+            var txt = "";
+            txt += "<option>Please select one</option>"
+            $.each(data, function (j, info) {
+           
+                txt += "<option value=" + info.ftId +">" + info.feetype1 +"</option>";
+
+            });
+            ddltype.html(txt);
+        });
+    }
+</script>
+
+<form method="post" asp-controller="Collection" asp-action="Index">
+   
+    <div class="form-group">
+        <select class="form-control" onchange="getFTID()" id="FeeYear" asp-items='(IEnumerable
+         <SelectListItem>)TempData["Feeyear"]'>
+            <option>Please select one</option>
+        </select>
+    </div>
+        <div class="form-group">
+        <select asp-for="Type" class="form-control"  onchange="TypeSelected()">
+            <option>Please select one</option>
+
+        </select>
+    </div>
+    <div class="form-group">
+        <select class="form-control" asp-for="TermID" id="termdata"></select>
+    </div>
+    <input type="submit" />
+</form>

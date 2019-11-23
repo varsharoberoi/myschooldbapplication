@@ -1,0 +1,62 @@
+﻿@model myschooldbapplication.Models.Student
+
+@{
+    ViewData["Title"] = "Student";
+}
+<script type="text/javascript">
+    //alert("Hello world");
+    function myfun() {
+       // alert("Hello");
+       //alert($("#StName").val());
+    }
+</script>
+<h2>Student</h2>
+@section scripts{ 
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<h4>Student</h4>
+<hr />
+
+   
+    <form asp-action="Student">
+        <div class="form-row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-4">
+                <label asp-for="StName" class="control-label"></label>
+                <input asp-for="StName" class="form-control" />
+                <span asp-validation-for="StName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Dob" class="control-label"></label>
+                <input asp-for="Dob" class="form-control" />
+                <span asp-validation-for="Dob" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="ParentName" class="control-label"></label>
+                <input asp-for="ParentName" class="form-control" />
+                <span asp-validation-for="ParentName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="EmailId" class="control-label"></label>
+                <input asp-for="EmailId" class="form-control" />
+                <span asp-validation-for="EmailId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-8">
+                <label asp-for="ParentMobile" class="control-label"></label>
+                <input asp-for="ParentMobile" class="form-control" />
+                <span asp-validation-for="ParentMobile" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-12">
+                <input type="submit" onclick="myfun()" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+  
+       
+    </form>
+    
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

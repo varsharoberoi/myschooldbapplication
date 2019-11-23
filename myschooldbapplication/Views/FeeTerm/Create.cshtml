@@ -1,0 +1,119 @@
+﻿@model myschooldbapplication.Models.ViewModel.FeeTermModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    function AddTerm(termno) {
+      
+
+        $("#result")
+            .append($('<tr>')
+                .append($('<th>')
+                    .text('Term')
+                )
+                .append($('<th>').text("Term Amount"))
+                .append($('<th>').text("Term Date"))
+                .append($('<th>').text("Admission Year"))
+        );
+        
+        for (i = 0; i < termno.value; i++) {
+            $("#result")
+                .append($('<tr></tr>', {id:'tr'+i})
+                    .append($('<td></td>').append($("<input>", { type:"text"})))
+                    .append($('<td></td>').append($("<input>", { name: "terms", type: "number" })))
+                    .append($('<td></td>').append($("<input>", { type: "date" })))
+                    .append($('<td></td>').append($("<input>", { type: "text" })))
+                     );
+
+        }
+        $("#result")
+            .append($('<tr></tr>')
+                .append($('<td></td>', { colspan: '4', style: 'text-align:center' }).append($("<input>", { value: "Add", type: "button", onclick:"validatefee()" }))));
+              
+    }
+    function validatefee() {
+        totalfees = $("#FeeTypes_TotalFees").val();
+        sum = 0;
+        $("[name=terms]").each(function () {
+            val = $(this).val();
+            val = parseInt(val);
+            sum =sum+val;
+
+        });
+
+        if (sum == totalfees) {
+            /*    public string Term { get; set; }
+              [JsonProperty]
+          public int ? TermAmount { get; set; }
+              [JsonProperty]
+  
+              [DataType(DataType.Date)]
+          public DateTime ? TermDate { get; set; }
+              [JsonProperty]
+          public int ? AdYear { get; set; }
+          */
+            var termlist = [];
+            termsrow = $("#result tr");
+
+            for (var i = 1; i < termsrow.length-1; i++) {
+                var col1 = $(termsrow[i]).find("td:eq(0) input").val();
+                var col2 = $(termsrow[i]).find("td:eq(1) input").val();
+                var col3 = $(termsrow[i]).find("td:eq(2) input").val();
+                var col4 = $(termsrow[i]).find("td:eq(3) input").val();
+                obj = { Term: col1, TermAmount: col2, TermDate: col3, AdYear: col4 };
+                termlist.push(obj);
+                alert(obj.Term + "  " + obj.TermAmount + "  " + obj.TermAmount + "  " + obj.TermDate + "  " + obj.AdYear);
+            }
+            $("#AdTypeFees").val(JSON.stringify(termlist));
+             $("#feeform").submit();
+        }
+        else {
+            alert("Fee total do not match");
+        }
+    }
+
+    
+</script>
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="feeform" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FeeTypes.Feetype1" class="control-label"></label>
+                <input asp-for="FeeTypes.Feetype1" class="form-control" />
+                <span asp-validation-for="FeeTypes.Feetype1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeeTypes.Feeyeartext" class="control-label"></label>
+                <input asp-for="FeeTypes.Feeyeartext" class="form-control" />
+                <span asp-validation-for="FeeTypes.Feeyeartext" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeeTypes.FeeYear" class="control-label"></label>
+                <input asp-for="FeeTypes.FeeYear" class="form-control" />
+                <span asp-validation-for="FeeTypes.FeeYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeeTypes.TotalFees" class="control-label"></label>
+                <input asp-for="FeeTypes.TotalFees" class="form-control" />
+                <span asp-validation-for="FeeTypes.TotalFees" class="text-danger"></span>
+            </div>
+            <div>
+                <label class="contol-label">No of Terms</label>
+                <input asp-for="Noofterms" class="form-control" />
+            </div>
+            <div>
+
+                <input type="hidden" asp-for="AdTypeFees" />
+            </div>
+            <div class="form-group">
+                <input type="button" onclick="AddTerm(Noofterms)" value="Create" class="btn btn-default" />
+            </div>
+            <table id="result"></table>
+        </form>
+    </div>
+</div>
+
+

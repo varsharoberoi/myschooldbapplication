@@ -1,0 +1,170 @@
+﻿@model IEnumerable<myschooldbapplication.Models.ViewModel.AdPay>
+
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <style>
+        ul li
+        {
+            list-style-type:none
+        }
+    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - myschooldbapplication</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        @*<link rel="stylesheet" href="~/css/style1.css" />*@
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(window).on('popstate', function (event) {
+                alert("pop");
+            });
+        });
+
+
+    </script>
+</head>
+<body>
+    <h2>Admission Confirmation Receipt</h2></br>
+    Blossom Buds School1,</br>
+    Sarnam Duplex,</br>
+    opp. Sopan Veer Residency- 2,</br>
+    off. New C.G.Road,</br>
+    Chandkheda, Ahmedabad,Gujarat, India</br>
+    Pin Code: 382424</br>
+    EmailID: info@blossombudskids.in</br>
+    Contact Number: +91 9428106023</br>
+    <table class="table table-condensed">
+        @foreach (var item1 in Model)
+        {
+            <tr>
+                <th>AdmissionID</th>
+                <th>StudentName</th>
+                <th>Standards</th>
+                <th>Total Fees</th>
+                <th>Paid Amount</th>
+                <th>Pending Amount</th>
+            </tr>
+            <tr>
+
+                <td> @item1.Admission1.AdId</td>
+
+                <td>   @Html.DisplayFor(modelItem => item1.Admission1.St.StName)</td>
+
+                <td> @item1.Admission1.Std.Stname</td>
+                <td>@item1.Admission1.Totalfees</td>
+                <td>
+                    @item1.Admission1.PaidAmount
+                </td>
+                <td>@item1.Admission1.Pendingamt</td>
+            </tr>
+
+            <tr>
+
+                <td colspan="6">
+
+                    <table class="table table-condensed">
+                        <tr style="height:20px">
+                            <td align="center" colspan="5"><h1>Payment Details</h1></td>
+                        </tr>
+                        <tr>
+                            <th>Term</th>
+                            <th>Term Amount</th>
+                            <th>Term Date</th>
+                            <th>Payment Date</th>
+                            <th>Payment Status</th>
+                            <th>Payment Mode</th>
+                        </tr>
+                        @foreach (var item in item1.ListAdmissiopay)
+                        {
+
+                            <tr>
+                                <td>
+                                    @item.AdT.Term
+                                </td>
+                                <td>
+                                    @item.AdT.TermAmount
+                                </td>
+
+                                @{
+                                    if (item.PayDate != null)
+                                    {
+                                        DateTime dt = item.PayDate.Value;
+                                        string pdate = dt.ToShortDateString();
+                                        <td>@pdate</td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    if (item.AdT.TermDate != null)
+                                    {
+                                        DateTime dt1 = item.AdT.TermDate.Value;
+                                        string tdate = dt1.ToLongDateString();
+                                        <td>@tdate</td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    if (item.Paystatus != null)
+                                    {
+                                        if (item.Paystatus.Value == true)
+                                        {
+                                            <td><b>Paid</b></td>
+                                        }
+                                        <td>@item.Pay_mode</td>
+                                        if(item.Pay_mode=="Cheque")
+                                        {
+                                        <td>
+                                            <ul>
+                                                <li><b>Cheque number</b>:@item.Chequeno</li>
+                                                <li><b>Cheque Date</b>:@item.Chequedt</li>
+                                                <li><b>Bank Name</b>:@item.BankName</li>
+                                                <li><b> Bank Branch</b>:@item.BankBranch</li>
+                                            </ul>
+                                        </td>
+                                                                                         
+                                       
+
+                                        }
+                                        if(item.Pay_mode== "netbanking")
+                                        {
+
+                                            <td><b>Transaction number</b>: @item.Transactionno</td>
+                                        }
+                                      
+                                    }
+                                    else
+                                    {
+                                        <td><b>Payment Due</b></td>
+                                    }
+                                }
+
+
+                            </tr>
+                        }
+                    </table>
+
+                </td>
+            </tr>
+        }
+
+
+    </table>
+    
+</body>
+</html>

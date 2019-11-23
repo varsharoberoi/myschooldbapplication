@@ -1,0 +1,61 @@
+﻿@model  ReflectionIT.Mvc.Paging.PagingList<myschooldbapplication.Models.Student>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *,ReflectionIT.MVC.Paging
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<nav aria-label="pagination example">
+    @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model });
+</nav>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dob)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentMobile)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentMobile)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<nav aria-label="Employee example">
+    <vc:pager paging-list="@Model"></vc:pager>
+</nav>

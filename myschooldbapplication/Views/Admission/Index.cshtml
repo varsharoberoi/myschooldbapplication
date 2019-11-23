@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<script type="text/javascript">
+    function myevent() {
+        var res = $("#ctrl1").val();
+      //  alert(res);
+        if (res == 0) {
+            //alert(res);
+            $("#N").show();
+            $("#M").css("display", "none");
+         //   $("#P").css("visibility", "hidden");
+        }
+        else if(res==1) {
+         //   alert(res + "withinone");
+            $("#admn").submit();
+            //$("#M").show();
+           
+            //$("#N").css("display", "none");
+        }
+    }
+</script>
+<h2>Index</h2>
+<div class="row">
+    <div class="col-md-4">
+    <select id="ctrl1" onchange="myevent()">
+        <option>Select</option>
+        <option value="0">New Admission</option>
+        <option value="1">Promote Admission</option>
+    </select>
+    </div>
+    <div style="display:none;" id="N">
+        @await Html.PartialAsync("Student")
+        
+        <hr />
+        <footer>
+            <p>information</p>
+        </footer>
+    </div>
+    <div  style="display:none;" id="M">
+        
+         <form asp-action="Create" id="admn" method="get" asp-controller="Admission1">
+            <input type="submit" value="Process Admission" />
+        </form>
+
+
+    </div>
+</div>

@@ -1,0 +1,136 @@
+﻿@model myschooldbapplication.Models.ViewModel.ListModel
+
+<script>
+    function submitform(value) {
+        $("#AdId").val(value);
+        $("#frmstudent").submit();
+    }
+</script>
+<div class="container">
+    <div class="col-md-4">
+        <form asp-action="Searchadmnupdate" asp-route-id="update" asp-controller="Enrollment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserSearch.St_Name" class="control-label col-sm-2"></label>
+                <div class="col-sm-10">
+                    <input asp-for="UserSearch.St_Name" class="form-control" />
+                    <span asp-validation-for="UserSearch.St_Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">Search</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@if (Model.EnrollModels != null)
+{
+    <form id="frmstudent" asp-action="selectadmission" asp-route-id="update" asp-controller="Enrollment">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        AdmissionID
+                    </th>
+                    <th>
+                        Student NAme
+                    </th>
+                    <th>
+                        Standard
+                    </th>
+                    <th>
+                        Parent Name
+                    </th>
+                    <th>
+                        Mother Name
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <input type="hidden" asp-for="AdId" />
+                <input type="hidden" asp-for="ctrl1" value="1" />
+                @foreach (var item in Model.EnrollModels)
+                {
+                    <tr>
+                        <td>
+
+                            <input name="choice" asp-for="AdId" value="@item.AdId" type="radio" onchange="submitform(this.value)" />
+
+
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Stname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MotherName)
+                        </td>
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </form>
+    if (ViewBag.studentdiv != null)
+    {
+        <div>
+            @await Html.PartialAsync("updatedetails", Model)
+        </div>
+    }
+
+
+
+
+
+}
+@if (ViewBag.display == "div4")
+
+{
+
+    <p>ID:@ViewBag.student.StId</p>
+    <p>Name:@ViewBag.student.StName</p>
+    <p> @ViewBag.student.Address </p>
+    <p> @ViewBag.student.EmailId</p>
+    <p> @ViewBag.student.Gender</p>
+    <p>@ViewBag.student.MotherName</p>
+
+
+    <p> @ViewBag.student.MotherOccu;</p>;
+    <p>@ViewBag.student.MotherPhone;</p>
+    <p>@ViewBag.student.MotherQualification;</p>
+    <p>@ViewBag.student.MotherWhatsapp </p>;
+    <p>@ViewBag.student.Nationality ;</p>
+    <p>@ViewBag.student.Occupation </p>;
+    <p> @ViewBag.student.ParentMobile ;</p>
+    <p>@ViewBag.student.ParentName ;</p>
+    <p>@ViewBag.student.ParentWhatsappNo ;</p>
+    <p>@ViewBag.student.POB ;</p>
+    <p>@ViewBag.student.Qualification;</p>
+         
+    
+    <h1 style="color:green">Record updated successfully</h1>
+}
+

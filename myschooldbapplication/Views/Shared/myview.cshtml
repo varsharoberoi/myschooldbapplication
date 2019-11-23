@@ -1,0 +1,55 @@
+﻿@model myschooldbapplication.Models.Admissiopay
+<form asp-action="Edit">
+    <input type="hidden" asp-for="AdId" />
+    <input type="hidden" asp-for="AdTId" />
+    <div class="form-group">
+        <label asp-for="PayDate" class="control-label"></label>
+        <input asp-for="PayDate" class="form-control" />
+        <span asp-validation-for="PayDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Paystatus" class="control-label"></label>
+        <div>
+
+            @Html.CheckBox("Paystatus", Model.Paystatus ?? false)
+
+
+        </div>
+
+
+        <span asp-validation-for="Paystatus" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Pay_mode" class="control-label"></label>
+        <div>
+            <select id="mode" asp-for="Pay_mode" onchange="appenddiv(this)">
+                <option>Please select one</option>
+                <option value="1">Cash</option>
+                <option value="2">Cheque</option>
+                <option value="3">Ebanking</option>
+            </select>
+
+        </div>
+
+
+        <span asp-validation-for="Pay_mode" class="text-danger"></span>
+    </div>
+    <div id="" style="display:none" class="mode1">
+        <label asp-for="Chequeno" class="control-label"></label>
+        <div>
+            <input asp-for="Chequeno" class="form-control" />
+        </div>
+    </div>
+    <div id="" style="display:none" class="mode2">
+        <label asp-for="Transactionno" class="control-label"></label>
+        <div>
+            <input asp-for="Transactionno" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+</form>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@

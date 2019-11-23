@@ -1,0 +1,198 @@
+﻿@model myschooldbapplication.Models.ViewModel.ListModel
+
+    <script type="text/javascript">
+       
+  
+      
+        function namevalidation(name, value, ctrl) {
+
+            if (ctrl.type == "select-one") {
+                if (ctrl.selectedIndex == 0) {
+
+                    $("#" + ctrl.id).next().html(" Please select " + name);
+                }
+                else {
+                    $("#" + ctrl.id).next().html("");
+                }
+
+            }
+            else if (ctrl.type == "text" || ctrl.type == "date") {
+                if (value == "") {
+
+                    $("#" + ctrl.id).next().html(name + " field can not be blank");
+                }
+                else if (ctrl.id == "Dob")
+                {
+                    dt = new Date();
+                    year = dt.getFullYear();
+                    Milliseconds = Date.parse(value);
+                    dt1 = new Date(Milliseconds);
+
+                    if (dt1 >= dt) {
+                        $("#" + ctrl.id).next().html(name + " Should be less than  two years from current date");
+                    }
+                    else {
+                        $("#" + ctrl.id).next().html("");
+                    }
+                }
+                else {
+                    $("#" + ctrl.id).next().html("");
+                }
+            }
+
+
+
+        }
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image_upload_preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+    </script>
+
+    
+    <hr />
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="updatesubmit" enctype="multipart/form-data" asp-route-ctrl="@ViewBag.ctrl">
+                    <input type="hidden" asp-for="EnrollModel.paystatusid" />
+                    <input type="hidden" asp-for="EnrollModel.divdata" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="EnrollModel.StId" />
+                    <input type="hidden" asp-for="EnrollModel.AdId" />
+                    <div class="form-group col-md-4">
+                        @if (Model.EnrollModel != null)
+                        {
+                            if (Model.EnrollModel.Pic != null)
+                            {
+                                <img id="image_upload_preview" height="300px" width="300px" src="/Enrollment/ViewImage/@Model.EnrollModel.StId" />
+                                <label class="control-label">Image upload</label>
+                                <input type="file" onchange="readURL(this)" asp-for="EnrollModel.files" />
+                            }
+
+                        }
+                        else
+                        {
+                            <img id="image_upload_preview" height="300px" width="300px" />
+                            <label class="control-label">Image upload</label>
+                            <input type="file" onchange="readURL(this)" asp-for="EnrollModel.files" />
+                        }
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.StName" class="control-label"></label>
+                        <input asp-for="EnrollModel.StName" onblur="namevalidation('Name',this.value,EnrolModel_StName)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.StName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Dob" class="control-label"></label>
+                        <input asp-for="EnrollModel.Dob" onblur="namevalidation('Date of Birth',this.value,EnrolModel_Dob)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.Dob" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.POB" class="control-label"></label>
+                        <input asp-for="EnrollModel.POB" onblur="namevalidation('Place of Birth',this.value,EnrolModel_POB)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.POB" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Nationality" class="control-label"></label>
+                        <input asp-for="EnrollModel.Nationality" onblur="namevalidation('Nationality',this.value,EnrolModel_Nationality)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.Nationality" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Gender" class="control-label"></label>
+                        <div class="row">
+                            <label class="radio-inline">
+                                <input asp-for="EnrollModel.Gender" type="radio" value="Male" /> Male
+                            </label>
+                            <label class="radio-inline">
+                                <input asp-for="EnrollModel.Gender" type="radio" value="Female" /> Female
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Address" class="control-label"></label>
+                        <input asp-for="EnrollModel.Address" onblur="namevalidation('Address',this.value,EnrolModel_Address)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.ParentName" class="control-label"></label>
+                        <input asp-for="EnrollModel.ParentName" onblur="namevalidation('Parent Name',this.value,EnrolModel_ParentName)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.ParentName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.ParentMobile" class="control-label"></label>
+                        <input asp-for="EnrollModel.ParentMobile" onblur="namevalidation('Mobile Number',this.value,EnrolModel_ParentMobile)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.ParentMobile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.ParentWhatsappNo" class="control-label"></label>
+                        <input asp-for="EnrollModel.ParentWhatsappNo" onblur="namevalidation('Parent Whatsapp Number',this.value,EnrolModel_ParentWhatsappNo)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.ParentName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.EmailId" class="control-label"></label>
+                        <input asp-for="EnrollModel.EmailId" onblur="namevalidation('Email ID',this.value,EnrolModel_EmailId)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.EmailId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Qualification" class="control-label"></label>
+                        <input asp-for="EnrollModel.Qualification" onblur="namevalidation('Qualification',this.value,EnrolModel_EmailId)" class="form-control" />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Occupation" class="control-label"></label>
+                        <input asp-for="EnrollModel.Occupation" onblur="namevalidation('Occution',this.value,EnrolModel_Occupation)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.EmailId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherName" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherName" onblur="namevalidation('Mother Name',this.value,EnrolModel_MotherName)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherPhone" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherPhone" onblur="namevalidation('Mother Phone number',this.value,EnrolModel_MotherPhone)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherPhone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherWhatsapp" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherWhatsapp" onblur="namevalidation('Mother Whatsapp number',this.value,EnrolModel_MotherWhatsapp)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherWhatsapp" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherQualification" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherQualification" onblur="namevalidation('Mother Qualification',this.value,EnrolModel_MotherQualification)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherQualification" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherOccu" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherOccu" onblur="namevalidation('Mother Occupation',this.value,EnrolModel_MotherOccu)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherOccu" class="text-danger"></span>
+                    </div>
+              
+
+                    <div class="form-group col-md-12">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+ 
+
+
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@

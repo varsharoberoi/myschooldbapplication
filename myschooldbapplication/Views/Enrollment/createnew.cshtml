@@ -1,0 +1,456 @@
+﻿@model myschooldbapplication.Models.ViewModel.ListModel
+
+    <script type="text/javascript">
+       
+    function getFTID() {
+        var i = $("#EnrollModel_FeeYear").val();
+        var url = '@Url.Content("~/")' + "FeeTypes/GetFT";
+
+        $.getJSON(url, { year: i }, function (data) {
+            var ddltype = $("#EnrollModel_FTId");
+            var txt = "";
+            txt += "<option>Please select one</option>"
+            $.each(data, function (j, info) {
+
+                txt += "<option value=" + info.ftId +">" + info.feetype1 +"</option>";
+
+            });
+            ddltype.html(txt);
+        });
+        }
+        tdcount=1;
+        function selectedoption(value, val1) {
+
+            firstrow = document.getElementById("First");
+            row = document.getElementById("tr" + val1);
+            elements = document.getElementsByName("newelement");
+            headnew = document.getElementsByName("headnew");
+            headlen = headnew.length;
+            alert(headlen);
+            for (var i = headlen-1; i >=0; i--) {
+                firstrow.removeChild(headnew[i]);
+            }
+            alert(elements.length);
+            var len = elements.length;
+
+            for (i = len-1; i >=0; i--) {
+                if (elements[i].parentNode.id == row.id) {
+                    row.removeChild(elements[i]);
+                }
+            }
+
+
+            if (value == 2) {
+                $("<th></th>", { name:'headnew' }).appendTo("#First").text("Cheque No");
+                $("<th></th>", { name: 'headnew' }).appendTo("#First").text("Cheque Date");
+                $("<th></th>", { name: 'headnew' }).appendTo("#First").text("Bank Name");
+                $("<th></th>", { name: 'headnew' }).appendTo("#First").text("Branch");
+              //  firstrow.innerHTML += "<th name='headnew'>ChequeNo</th><th name='headnew'>Cheque Date</th>";
+                $("<td></td>", { id: 'td1', name: 'newelement' }).appendTo("#tr" + val1);
+
+                $("<input></input>", { type: 'text', id: 'chqno' + val1, onblur:"namevalidation('ChequeNo',this.value,chqno" + val1+")" }).appendTo("#tr" + val1 + " #td1");
+                $("<span></span>", { id: "chq_spn" + val1, class: "text-danger" }).appendTo("#tr" + val1 + " #td1");
+                $("<td></td>", { id:'td2', name:'newelement' }).appendTo("#tr" + val1);
+                $("<input></input>", { type: 'date', id: 'chqdt' + val1, onblur: "namevalidation('ChequeDate',this.value,chqdt" + val1 + ")"}).appendTo("#tr"+val1+" #td2");
+                $("<span></span>", { id: "chq_dt_spn" + val1, class: 'text-danger' }).appendTo("#tr" + val1 + " #td2");
+                $("<td></td>", { id: 'td3', name: 'newelement' }).appendTo("#tr" + val1);
+                $("<input></input>", { type: 'text',  id: 'bnkname' + val1, onblur: "namevalidation('Bank Name',this.value,bnkname" + val1 + ")" }).appendTo("#tr" + val1 + " #td3");
+                $("<span></span>", { id: "spn_bnkname" + val1, class: 'text-danger' }).appendTo("#tr" + val1 + " #td3");
+
+                $("<td></td>", { id: 'td4', name: 'newelement' }).appendTo("#tr" + val1);
+                $("<input></input>", { type: 'text', id: 'bnkbranch' + val1, onblur: "namevalidation('Branch Name',this.value,bnkbranch" + val1 + ")" }).appendTo("#tr" + val1 + " #td4");
+                $("<span></span>", { id: "spn_bnkbranch" + val1, class: 'text-danger' }).appendTo("#tr" + val1 + " #td4");
+
+
+            //   row.innerHTML += "<td name='newelement' id=td1><input type='text' id='chqno" + val1 + "'/></td>";
+              //  row.innerHTML += "<td name='newelement' id=td2><input type='text' id='chqdt" + val1 + "'/></td>";
+            }
+            else if (value == 3) {
+
+                $("<td></td>", { id: 'td3', name: 'newelement' }).appendTo("#tr" + val1);
+
+                $("<input></input>", { type: 'text', id: 'eno' + val1, onblur: "namevalidation('TransactionNumber',this.value,eno" + val1 + ")" }).appendTo("#tr"+val1+" #td3");
+                $("<span></span>", { id: "spn_eno" + val1, class: 'text-danger' }).appendTo("#tr" + val1 + " #td3");
+            }
+           // document.getElementById("mod" + val1).options[value].selected = true;
+
+        }
+    function termselected()
+    {
+
+        var i = $("#EnrollModel_FTId").val();
+        var url = '@Url.Content("~/")' + "AdTypeFees/GetFee";
+
+        $.getJSON(url, { id: i }, function (data) {
+            var tab = '<table  class=table>';
+            tab+='<tr id="First"><th>Scheduled Data</th><th>Term</th><th>Amount</th><th>Payment Status</th><th>PaymentDate</th><th>Payment Mode</th>'
+          //  alert(data);
+            //alert(data[0].termAmount);
+            var sum = 0;
+
+            $.each(data, function (j,info1) {
+                tab += "<tr id='tr" + info1.adTId+"'>";
+                tab += '<td>';
+                tab += info1.termDate;
+                tab += '</td>';
+                tab += '<td>';
+                tab += info1.term;
+                tab += '</td>';
+                tab += '<td>';
+                tab += info1.termAmount;
+                tab += '</td>';
+
+                sum += info1.termAmount;
+                tab += "<td><input onchange='enableother(this.value)' type='checkbox' name='info' id='chk" + info1.adTId + "' value='" + info1.adTId + "'></td>";
+                tab += "<td><input disabled  type='date' id='dt" + info1.adTId + "'></td>";
+                tab +="<td><select disabled id='mod"+info1.adTId+"' onchange='return selectedoption(this.value,"+info1.adTId+")'><option value=0>select</option><option value='1'>Cash</option><option value='2'>Cheque No</option><option value='3'>ETransaction</option></select></td>"
+                tab += '</tr>';
+
+            });
+            tab += '<tr><td>Total</td><td>' + sum + '</td></tr>';
+            tab += '</table>';
+
+
+            $("#result").html(tab);
+                });
+
+
+        }
+        function enableother(value) {
+            if (document.getElementById("chk" + value).checked) {
+                document.getElementById("dt" + value).disabled = false;
+                document.getElementById("mod" + value).disabled = false;
+
+            }
+            else {
+                elements = document.getElementsByName("newelement");
+                headnew = document.getElementsByName("headnew");
+                headlen = headnew.length;
+                row=  document.getElementById("tr" + value);
+                alert(headlen);
+                firstrow= document.getElementById("First");
+                for (var i = headlen - 1; i >= 0; i--) {
+                    firstrow.removeChild(headnew[i]);
+                }
+                alert(elements.length);
+                var len = elements.length;
+
+                for (i = len - 1; i >= 0; i--) {
+
+                    if (elements[i].parentNode.id == row.id) {
+                        row.removeChild(elements[i]);
+                    }
+
+                }
+                document.getElementById("dt" + value).value = "";
+                document.getElementById("mod" + value).selectedIndex = 0;
+                document.getElementById("dt" + value).disabled = true;
+                document.getElementById("mod" + value).disabled = true;
+            }
+        }
+        function storecheck() {
+            paidterms = "";
+            paiddates = "";
+            names = document.getElementsByName("info");
+            paymode = "";
+
+            if (names[0].checked == false) {
+                alert("Please select atleast one payment");
+                return false;
+
+            }
+            else {
+                for (var i = 0; i < names.length; i++) {
+                    if (names[i].checked) {
+
+                        var parentid = (names[i].parentNode.parentNode.id);
+                        var res = parentid.substr(2);
+                        paymode +=res+".";
+
+
+                        if (($("#" + parentid + " #dt" + res).val()) == "") {
+
+                            alert("Please enter date");
+                            return false;
+                        }
+                        if ($("#" + parentid + " #mod" + res).val() == 0)
+                        {
+                            alert("Please select payment mode");
+                            return false;
+                        }
+                        paymode += ($("#" + parentid + " #dt" + res).val()) + ".";
+                        if ($("#" + parentid + " #mod" + res).val() == 1) {
+
+
+                            paymode +=  $("#" + parentid + " #mod" + res).val()+",";
+
+                        }
+                        else if ($("#" + parentid + " #mod" + res).val() == 2) {
+                            //alert($("#" + parentid + " #td1 #chqno"+res).val());
+                            if ($("#" + parentid + " #td1 #chqno" + res).val()=="") {
+                                alert("Please Enter Cheque no");
+                                return false;
+                            }
+                            if ($("#" + parentid + " #td2 #chqdt" + res).val() == "") {
+                                alert("Please Enter Cheque date");
+                                return false;
+                            }
+                            if ($("#" + parentid + " #eno" + res).val()) {
+                                alert("Please Enter Transaction no");
+                                return false;
+                            }
+                            paymode += $("#" + parentid + " #mod" + res).val() + "." + $("#" + parentid + " #td1 #chqno" + res).val() + "." + $("#" + parentid + " #td2 #chqdt" + res).val() + "." + $("#" + parentid + " #td3 #bnkname" + res).val() + "." + $("#" + parentid + " #td4 #bnkbranch" + res).val()+",";
+                        }
+                        else if ($("#" + parentid + " #mod" + res).val() == 3) {
+
+                            paymode +=  $("#" + parentid + " #mod" + res).val() + "." + $("#" + parentid + " #eno" + res).val() + ",";
+                        }
+
+                    }
+                }
+                alert(paiddates);
+                alert(paymode);
+                document.getElementById("EnrollModel_paystatusid").value = paymode;
+                divdata = $("#result").html();
+                $("#EnrollModel_divdata").val(divdata);
+
+                return true;
+            }
+
+
+        }
+        function namevalidation(name, value, ctrl) {
+
+            if (ctrl.type == "select-one") {
+                if (ctrl.selectedIndex == 0) {
+
+                    $("#" + ctrl.id).next().html(" Please select " + name);
+                }
+                else {
+                    $("#" + ctrl.id).next().html("");
+                }
+
+            }
+            else if (ctrl.type == "text" || ctrl.type == "date") {
+                if (value == "") {
+
+                    $("#" + ctrl.id).next().html(name + " field can not be blank");
+                }
+                else if (ctrl.id == "Dob")
+                {
+                    dt = new Date();
+                    year = dt.getFullYear();
+                    Milliseconds = Date.parse(value);
+                    dt1 = new Date(Milliseconds);
+
+                    if (dt1 >= dt) {
+                        $("#" + ctrl.id).next().html(name + " Should be less than  two years from current date");
+                    }
+                    else {
+                        $("#" + ctrl.id).next().html("");
+                    }
+                }
+                else {
+                    $("#" + ctrl.id).next().html("");
+                }
+            }
+
+
+
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image_upload_preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+    </script>
+
+    <h4>EnrollModel</h4>
+    <hr />
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create" enctype="multipart/form-data" asp-route-ctrl="@ViewBag.ctrl">
+                 
+                    <input type="hidden" asp-for="EnrollModel.paystatusid" />
+                    <input type="hidden" asp-for="EnrollModel.divdata" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="EnrollModel.StId" />
+                    <input type="hidden" asp-for="EnrollModel.AdId" />
+                    <div class="form-group col-md-4">
+                        @if (Model.EnrollModel != null)
+                        {
+                            if (Model.EnrollModel.Pic != null)
+                            {
+                                <img id="image_upload_preview" height="300px" width="300px" src="/Enrollment/ViewImage/@Model.EnrollModel.StId" />
+                                <label class="control-label">Image upload</label>
+                                <input type="file" onchange="readURL(this)" asp-for="EnrollModel.files" />
+                            }
+
+                        }
+                        else
+                        {
+                            <img id="image_upload_preview" height="300px" width="300px" />
+                            <label class="control-label">Image upload</label>
+                            <input type="file" onchange="readURL(this)" asp-for="EnrollModel.files" />
+                        }
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.StName" class="control-label"></label>
+                        <input asp-for="EnrollModel.StName" onblur="namevalidation('Name',this.value,EnrolModel_StName)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.StName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Dob" class="control-label"></label>
+                        <input asp-for="EnrollModel.Dob" onblur="namevalidation('Date of Birth',this.value,EnrolModel_Dob)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.Dob" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.POB" class="control-label"></label>
+                        <input asp-for="EnrollModel.POB" onblur="namevalidation('Place of Birth',this.value,EnrolModel_POB)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.POB" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Nationality" class="control-label"></label>
+                        <input asp-for="EnrollModel.Nationality" onblur="namevalidation('Nationality',this.value,EnrolModel_Nationality)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.Nationality" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Gender" class="control-label"></label>
+                        <div class="row">
+                            <label class="radio-inline">
+                                <input asp-for="EnrollModel.Gender" type="radio" value="Male" /> Male
+                            </label>
+                            <label class="radio-inline">
+                                <input asp-for="EnrollModel.Gender" type="radio" value="Female" /> Female
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Address" class="control-label"></label>
+                        <input asp-for="EnrollModel.Address" onblur="namevalidation('Address',this.value,EnrolModel_Address)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.ParentName" class="control-label"></label>
+                        <input asp-for="EnrollModel.ParentName" onblur="namevalidation('Parent Name',this.value,EnrolModel_ParentName)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.ParentName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.ParentMobile" class="control-label"></label>
+                        <input asp-for="EnrollModel.ParentMobile" onblur="namevalidation('Mobile Number',this.value,EnrolModel_ParentMobile)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.ParentMobile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.ParentWhatsappNo" class="control-label"></label>
+                        <input asp-for="EnrollModel.ParentWhatsappNo" onblur="namevalidation('Parent Whatsapp Number',this.value,EnrolModel_ParentWhatsappNo)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.ParentName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.EmailId" class="control-label"></label>
+                        <input asp-for="EnrollModel.EmailId" onblur="namevalidation('Email ID',this.value,EnrolModel_EmailId)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.EmailId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Qualification" class="control-label"></label>
+                        <input asp-for="EnrollModel.Qualification" onblur="namevalidation('Qualification',this.value,EnrolModel_EmailId)" class="form-control" />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.Occupation" class="control-label"></label>
+                        <input asp-for="EnrollModel.Occupation" onblur="namevalidation('Occution',this.value,EnrolModel_Occupation)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.EmailId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherName" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherName" onblur="namevalidation('Mother Name',this.value,EnrolModel_MotherName)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherPhone" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherPhone" onblur="namevalidation('Mother Phone number',this.value,EnrolModel_MotherPhone)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherPhone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherWhatsapp" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherWhatsapp" onblur="namevalidation('Mother Whatsapp number',this.value,EnrolModel_MotherWhatsapp)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherWhatsapp" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherQualification" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherQualification" onblur="namevalidation('Mother Qualification',this.value,EnrolModel_MotherQualification)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherQualification" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.MotherOccu" class="control-label"></label>
+                        <input asp-for="EnrollModel.MotherOccu" onblur="namevalidation('Mother Occupation',this.value,EnrolModel_MotherOccu)" class="form-control" />
+                        <span asp-validation-for="EnrollModel.MotherOccu" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.StdId" class="control-label"></label>
+
+                        <select asp-for="EnrollModel.StdId" onblur="namevalidation('Standard',this.value,EnrolModel_StdId)" class="form-control" asp-items="ViewBag.StdId">
+                            <option>Please select one</option>
+
+                        </select>
+                        <span asp-validation-for="EnrollModel.StdId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.FeeYear" class="control-label"></label>
+                        <select asp-for="EnrollModel.FeeYear" class="form-control" onblur="namevalidation('Fee Year',this.value,EnrolModel_FeeYear)" onchange="getFTID()" asp-items="@ViewBag.Feeyear">
+                            <option>Please select one</option>
+                        </select>
+                        @*<input asp-for="FeeYear"  class="form-control" />*@
+                        <span asp-validation-for="EnrollModel.FeeYear" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="EnrollModel.FTId" class="control-label"></label>
+                        @if (ViewData["FTId"] != null)
+                        {
+                            <select asp-for="EnrollModel.FTId" onblur="namevalidation('Year',this.value,EnrolModel_FTId)" class="form-control" onchange="termselected()" asp-items="@ViewBag.FTId">
+                                <option>Please select one</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <select asp-for="EnrollModel.FTId" onblur="namevalidation('Year',this.value,EnrolModel_FTId)" class="form-control" onchange="termselected()">
+                                <option>Please select one</option>
+
+                            </select>
+                        }
+
+                        <span asp-validation-for="EnrollModel.FTId" class="text-danger"></span>
+                    </div>
+                    <div id="result" class="form-group col-md-12">
+
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input onclick="return storecheck()" type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="existing">
+
+    </div>
+    <div>
+        <a asp-action="Indexdemo">Back to List</a>
+    </div>
+
+
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@

@@ -1,0 +1,172 @@
+﻿@model myschooldbapplication.Models.Admission1
+
+@{
+    ViewData["Title"] = "Create";
+}
+<script type="text/javascript">
+    function getFTID() {
+        var i = $("#FeeYear").val();        
+        var url = '@Url.Content("~/")' + "FeeTypes/GetFT";
+     
+        $.getJSON(url, { year: i }, function (data) {
+            var ddltype = $("#FTId");
+            var txt = "";
+            txt += "<option>Please select one</option>"
+            $.each(data, function (j, info) {
+           
+                txt += "<option value=" + info.ftId +">" + info.feetype1 +"</option>";
+
+            });
+            ddltype.html(txt);
+        });
+    }
+    function termselected()
+    {
+        @*var i = $("#FTId").val();   
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content("~/")' + "AdTypeFees/GetFee",
+            data: {id:i},
+            contentType: "application/json; charset=utf-8",
+            datatype: "jsondata",
+            async: "true",
+            success: function (response) {
+                var msg = eval('(' + response.d + ')');
+                alert(msg);
+                //if ($('#tblResult').length != 0) // remove table if it exists
+                //{ $("#tblResult").remove(); }
+                //var table = "<table class='tblResult' id=tblResult><thead> <tr><th>Name</th><th>Email</th><th>Age</th><th>Actions</th></thead>  <tbody>";
+                //for (var i = 0; i <= (msg.length - 1); i++) {
+                //    var row = "<tr>";
+                //    row += '<td>' + msg[i].Name + '</td>';
+                //    row += '<td>' + msg[i].Email + '</td>';
+                //    row += '<td>' + msg[i].Age + '</td>';
+                //    row += '<td><img src="edit.png" title="Edit record." onclick="bindRecordToEdit(' + msg[i].Id + ')" />  <img src="delete.png" onclick="deleteRecord(' + msg[i].Id + ')" title="Delete record." /></td>';
+
+                //    row += '</tr>';
+                //    table += row;
+                //}
+                //table += '</tbody></table>';
+                //$('#divData').html(table);
+                //$("#divData").slideDown("slow");
+
+            },
+            error: function (response) {
+                alert(response.status + ' ' + response.statusText);
+            }
+        });*@
+
+     //   alert("Hello");
+       // alert($("#FTId").val());
+        var i = $("#FTId").val();        
+        var url = '@Url.Content("~/")' + "AdTypeFees/GetFee";
+     
+        $.getJSON(url, { id: i }, function (data) {
+            var tab = '<table class=table>';
+          //  alert(data);
+            //alert(data[0].termAmount);
+            var sum = 0;
+            $.each(data, function (j,info1) {
+                tab += '<tr>';
+                tab += '<td>';
+                tab += info1.term;
+                tab += '</td>';
+                tab += '<td>';
+                tab += info1.termAmount;
+                tab += '</td>';
+                
+                
+              
+              //  alert(info1.term);;
+              //  alert(info1.termAmount);
+                sum += info1.termAmount;
+
+                tab += '</tr>';
+                    //var items = '';
+                    //$("#sltcity").empty();
+                    //$.each(data,  function (i, city) {
+                    //    items += "<option value='" + city + "'>" + city + "</option>";
+                    //});
+                    //$('#sltcity').html(items);
+            });
+            tab += '<tr><td>Total</td><td>' + sum + '</td></tr>';
+            tab += '</table>';
+        //    alert(tab);
+
+            $("#result").html(tab);
+                });
+           
+     
+    }
+</script>
+<h2>Create</h2>
+
+
+<h4>Admission1</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StId" class="control-label"></label>
+                @if (ViewBag.StId1 != null)
+                {
+
+                    <label asp-for="StId" class="form-control">@ViewBag.StId1</label>
+                    <input type="hidden" value="@ViewBag.StId2" asp-for="StId" />
+                }
+                else
+                {
+                    <select asp-for="StId" class="form-control" asp-items="ViewBag.StId">
+                        <option>Please select one</option>
+
+                    </select>
+
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="StdId" class="control-label"></label>
+
+                <select asp-for="StdId" class="form-control" asp-items="ViewBag.StdId">
+                    <option>Please select one</option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeeYear" class="control-label"></label>
+                <select asp-for="FeeYear" onchange="getFTID()" asp-items="@ViewBag.Feeyear">
+                    <option>Please select one</option>
+                </select>
+                @*<input asp-for="FeeYear"  class="form-control" />*@
+                <span asp-validation-for="FeeYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FTId" class="control-label"></label>
+                <select asp-for="FTId" class="form-control" onchange="termselected()">
+                    <option>Please select one</option>
+
+                </select>
+            </div>
+            <div id="result" class="form-group">
+
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+
+
+    </div>
+  
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

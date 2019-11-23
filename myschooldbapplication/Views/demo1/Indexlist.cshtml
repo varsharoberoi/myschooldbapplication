@@ -1,0 +1,18 @@
+﻿@model IList<Guid>
+@{
+    ViewData["Title"] = "Indexlist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Indexlist</h2>﻿
+
+<form action="/demo1/UploadImage" enctype="multipart/form-data" method="post">
+    <input type="file" name="files" />
+    <button>post</button>
+</form>
+
+@foreach (var item in Model)
+{
+    <img src="/demo1/ViewImage/@item" />
+}
+

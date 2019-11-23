@@ -1,0 +1,87 @@
+﻿@model IEnumerable<myschooldbapplication.Models.myview>
+
+@{
+    ViewData["Title"] = "Collection Pending";
+}
+
+<h2>Index</h2>
+
+<partial name="TermSearch" model="new myschooldbapplication.Models.ViewModel.collectionsearchmodel()" />
+@{
+    if (Model != null)
+    {
+        <table class="table table-bordered">
+            <tr>
+                <th>Admission ID</th>
+                <th>Student Name</th>
+                <th>Parent Contact Number</th>
+                <th>ContactNumber</th>
+                <th>Type of Admission</th>
+                <th>Term</th>
+                <th>Outstanding Till Date</th>
+                <th>Paid Status</th>
+                <th>Overall Paid</th>
+                <th>OverAll Pending</th>
+                <th>Total Amount</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.AdmissionID</td>
+                <td>@item.StudentName</td>
+                <td>@item.ParentName</td>
+                <td>@item.ContactNumber</td>
+                <td>@item.TypeID</td>
+                <td>@item.Term</td>
+
+                <td>@item.TermWisePending</td>
+                @if (@item.PaidStatus.HasValue)
+                {
+                    <td>Paid</td>
+                }
+                else
+                {
+                    <td>Not Paid</td>
+                }
+
+
+                <td>@item.PaidAmount</td>
+                <td>@item.PendingAmt</td>
+                <td>@item.TotalFees</td>
+                @{
+                            var parms = new Dictionary<string, string>
+            {
+                { "Name", item.StudentName },
+                { "Pending", item.TermWisePending.ToString() },
+                        {"Term",item.Term },
+                        { "OverAllPending",item.PendingAmt.ToString()},
+                        { "TotalFees",item.TotalFees.ToString()},
+                        { "Email",item.EmailID.ToString() }
+                    };
+                }
+
+                <td>  <a asp-action="MailSend" asp-controller="Collection" asp-all-route-data="parms">Send Mail</a> | </td>
+
+            </tr>
+            }
+            <tr>
+                <td><b>Total Pending term wise</b></td>
+                <td><b> @ViewBag.sum</b></td>
+                @*<td>
+                    <b>Paid amount  
+                      </b>        
+                </td>*@
+                @*<td>
+                   <b> @ViewBag.paidamt</b>
+                </td>*@
+                @*<td>
+                    <b> Total collection </b>
+                </td>
+                <td>
+                    <b>@ViewBag.total </b>
+                </td>*@
+            </tr>
+        </table>
+        
+    }
+}

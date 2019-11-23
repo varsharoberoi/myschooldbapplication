@@ -1,0 +1,53 @@
+﻿@model IEnumerable<myschooldbapplication.Models.Admissiopay>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PayDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paystatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdT)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paystatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ad.AdId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdT.AdTId)
+            </td>
+            <td>
+                
+                @Html.ActionLink("Edit", "Edit", new { id=item.AdId,id1=item.AdTId }) |
+            
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,50 @@
+﻿@model myschooldbapplication.Models.AdTypeFee
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>AdTypeFee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="FTId" class="control-label"></label>
+                <select asp-for="FTId" asp-items="@ViewBag.feetype"></select>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-horizontal">
+                    <label asp-for="Term" class="control-label"></label>
+                    <input asp-for="Term" class="form-control" />
+                    <span asp-validation-for="Term" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TermAmount" class="control-label"></label>
+                    <input asp-for="TermAmount" class="form-control" />
+                    <span asp-validation-for="TermAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TermDate" class="control-label"></label>
+                    <input asp-for="TermDate" class="form-control" />
+                    <span asp-validation-for="TermDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AdYear" class="control-label"></label>
+                    <input asp-for="AdYear" class="form-control" />
+                    <span asp-validation-for="AdYear" class="text-danger"></span>
+                </div>
+             
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

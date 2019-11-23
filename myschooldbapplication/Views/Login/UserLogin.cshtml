@@ -1,0 +1,284 @@
+﻿@model myschooldbapplication.Models.UserInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserLogin</title>
+  <style>
+      body {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 12px;
+          color: #313030;
+          background-color: #027fcf;
+          background-image: url(../images/top-rept.jpg);
+          background-repeat: repeat-x;
+          background-position: left top;
+          margin: 0px;
+      }
+
+      h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, input, textarea {
+          padding: 0px;
+          margin: 0px;
+      }
+
+      a {
+          color: #072FCF;
+          text-decoration: underline;
+      }
+
+          a:hover {
+              color: #072FCF;
+              text-decoration: none;
+          }
+
+      .main-out {
+          background-image: url(../images/trans.png);
+          background-repeat: repeat-y;
+          background-position: center top;
+          width: 100%;
+          float: left;
+      }
+
+      .main {
+          width: 1000px;
+          margin: 0px auto;
+      }
+
+      .page {
+          width: 1000px;
+          float: left;
+          padding: 42px 0px 0px 0px;
+      }
+
+      .top {
+          background-color: #f6f7f7;
+          width: 980px;
+          float: left;
+          padding: 0px 10px 10px 10px;
+      }
+
+      .header {
+          width: 980px;
+          float: left;
+      }
+
+      .header-top {
+       
+          background-image: url(../images/header-top.jpg);
+          background-repeat: no-repeat;
+          background-position: left top;
+          width: 980px;
+          height: 87px;
+          float: left;
+      }
+
+          .header-top h1 {
+              font-family: Georgia, "Times New Roman", Times, serif;
+              font-size: 35px;
+              font-weight: normal;
+              line-height: 87px;
+              color: #676767;
+              float: left;
+              margin-left: 66px;
+          }
+
+              .header-top h1 span {
+                  color: #1da5ea;
+              }
+
+          .header-top p {
+              font-size: 12px;
+              font-weight: bold;
+              color: #878585;
+              float: right;
+              margin-top: 46px;
+              margin-right: 80px;
+          }
+
+      .topmenu {
+          background-image: url(../images/menubg.jpg);
+          background-repeat: repeat-x;
+          width: 978px;
+          height: 37px;
+          float: left;
+          border: 1px solid #000000;
+      }
+
+          .topmenu ul {
+              width: 100%;
+              height: 37px;
+              list-style-type: none;
+          }
+
+              .topmenu ul li {
+                  height: 37px;
+                  float: left;
+                  padding-right: 20px;
+                  padding-left: 20px;
+              }
+
+                  .topmenu ul li a {
+                      font-family: Arial, Helvetica, sans-serif;
+                      font-size: 12px;
+                      font-weight: bold;
+                      line-height: 37px;
+                      color: #FFFFFF;
+                      text-decoration: none;
+                      display: block;
+                      height: 37px;
+                      float: left;
+                      padding-right: 10px;
+                      padding-left: 10px;
+                  }
+
+                      .topmenu ul li a:hover {
+                          background-image: url(../images/menu-hov.jpg);
+                          background-repeat: repeat-x;
+                          background-position: left top;
+                      }
+
+      .header-img {
+          background-image: url(../images/header.jpg);
+          background-repeat: no-repeat;
+          background-position: left top;
+          width: 980px;
+          height: 213px;
+          float: left;
+         
+      }
+
+          .header-img h2 {
+              font-family: Georgia, "Times New Roman", Times, serif;
+              font-size: 36px;
+              font-weight: normal;
+              line-height: 211px;
+              color: #FFFFFF;
+              margin-left: 98px;
+          }
+
+      .content {
+          background-image: url(../images/body-rept.jpg);
+          background-repeat: repeat-x;
+          background-position: left top;
+          width: 1000px;
+          float: left;
+          padding-top: 8px;
+      }
+
+      .content-left {
+          width: 500px;
+          float: left;
+      }
+
+      .row1 {
+          width: 500px;
+          float: left;
+          margin-left: 300px;
+          padding-bottom: 10px;
+          margin-bottom: 10px;
+          border-bottom-width: 1px;
+          border-bottom-style: solid;
+          border-bottom-color: #d4d5d5;
+      }
+
+      .img {
+          float: left;
+      }
+
+      .welcome {
+          width: 562px;
+          float: right;
+      }
+
+      .title {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 25px;
+          font-weight: normal;
+          color: #989b9c;
+          margin-bottom: 20px;
+      }
+
+          .title span {
+              color: #686868;
+          }
+
+      .copyright {
+          border: 0px;
+          height: 1px;
+          width: 1px;
+      }
+
+     
+
+    
+    
+  </style>
+    <link rel="stylesheet" href="~/css/myfile.css" />
+</head>
+<body>
+       <div class="main-out">
+        <div class="main">
+            <div class="page">
+                <div class="top">
+                    <div class="header">
+                        <div class="header-top">
+                            <h1>Blossom Buds<span>School</span></h1>
+                            <p>Call Us: 9428106023</p>
+                        </div>
+                        <div class="topmenu">
+                            <ul></ul>
+                        </div>
+                        <div class="header-img">
+                            <h2>Go Green</h2>
+                        </div>
+                    </div>
+                    <img src="images/copyright.gif" class="copyright"></a>
+                    <div class="content">
+                        <div class="login-form">
+                            <div class="main-div">
+                                <div class="img">
+
+                                </div>
+                                <div class="welcome" style="height:300px;align-content:center">
+
+                                    <form id="Login" asp-action="UserLogin" class="form-group">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group" style="font-size:larger;font-family:Arial">
+                                            <label asp-for="UserID"  class="control-label">User ID</label>&nbsp;
+                                            <input asp-for="UserID" class="form-control" placeholder="Enter User ID" />
+                                            <span asp-validation-for="UserID" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group" style="font-size:larger;font-family:Arial">
+                                            <label asp-for="Password" class="control-label"></label>
+                                            <input asp-for="Password" type="password" placeholder="Enter Password" class="form-control" />
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group" style="font-size:larger;font-family:Arial">
+                                            <input type="submit" class="btn btn-primary" value="Sign in" />
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>

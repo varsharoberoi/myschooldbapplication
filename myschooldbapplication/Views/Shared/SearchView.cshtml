@@ -1,0 +1,69 @@
+﻿@model myschooldbapplication.Models.ViewModel.UserSearch
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Searchadmn" asp-controller="Admission">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group col-md-4">
+                <label asp-for="Ad_ID" class="control-label"></label>
+               
+                    @if (ViewBag.ID != null)
+                    {
+                        <input asp-for="Ad_ID" value="@ViewBag.ID" class="form-control" />
+                    }
+                    else
+
+                    {
+                        <input asp-for="Ad_ID" class="form-control" />
+                    }
+
+                    <span asp-validation-for="Ad_ID" class="text-danger"></span>
+                
+
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="St_Name" class="control-label"></label>
+               
+                    @if (ViewBag.name != null)
+                    {
+                        <input asp-for="St_Name" value="@ViewBag.name" class="form-control" />
+                    }
+                    else
+                    {
+                        <input asp-for="St_Name" class="form-control" />
+                    }
+                    @*@Html.DropDownList("St_Name", (IEnumerable
+        <SelectListItem>)TempData["StdId"])*@
+
+
+                    <span asp-validation-for="St_Name" class="text-danger"></span>
+               
+            </div>
+            <div class="form-group col-md-5">
+               
+                    <label asp-for="Standard" class="control-label col-sm-2"></label>
+
+                    
+                        <select asp-for="Standard" class="form-control" asp-items='(IEnumerable
+         <SelectListItem>)TempData["StdId"]'>
+<option>Select</option>
+</select>
+
+                        @*<input asp-for="Standard" class="form-control" />*@
+
+                        <span asp-validation-for="Standard" class="text-danger"></span>
+                   
+                
+            </div>
+            <div class="form-group col-md-5">
+          
+                    <button type="submit" class="btn btn-default">Search</button>
+              
+            </div>
+           
+        </form>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<myschooldbapplication.Models.AdTypeFee>
+
+@{
+    ViewData["Title"] = "Terms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Terms</h2>
+
+<p>
+    <a asp-controller="FeeTerm" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.feetype.Feeyeartext)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.feetype.Feetype1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Term)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TermAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TermDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdYear)
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.feetype.Feeyeartext)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Term)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TermAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TermDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdYear)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.feetype.Feetype1)
+            </td>
+
+            
+        </tr>
+}
+    </tbody>
+</table>

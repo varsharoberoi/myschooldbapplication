@@ -1,0 +1,39 @@
+﻿@model myschooldbapplication.Models.FeeType
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FeeType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Feetype1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Feetype1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FeeYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FeeYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalFees)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalFees)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="FTId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

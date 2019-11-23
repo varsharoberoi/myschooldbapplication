@@ -1,0 +1,89 @@
+﻿@model myschooldbapplication.Models.ViewModel.ListModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+         //   alert("Hello");
+            yValue = $("#EnrollModel_divdata").val();
+            document.getElementById("result").innerHTML = yValue;
+            arr = document.getElementById("EnrollModel_paystatusid").value.split(",");
+            for (var i = 0; i < arr.length; i++) {
+                arr1 = arr[i].split(".");
+
+                $("#chk" + arr1[0]).prop("checked", true);
+                $("#dt" + arr1[0]).val(arr1[1]);
+                $("#mod" + arr1[0]).val(arr1[2]);
+
+
+                if (arr1[2] == 2) {
+                    $("#chqno" + arr1[0]).val(arr1[3]);
+                    $("#chqdt" + arr1[0]).val(arr1[4]);
+                    $("#bnkname" + arr1[0]).val(arr1[5]);
+                    $("#bnkbranch" + arr1[0]).val(arr1[6]);
+
+                }
+                else if (arr1[2] == 3) {
+                    $("#eno" + arr1[0]).val(arr1[3]);
+                }
+             
+               // alert(arr1[2]);
+            }
+
+        }
+    );
+
+    function myevent() {
+        $("#frm1").submit();
+      
+    }
+</script>
+<h2>Index</h2>
+<div class="row">
+    <form id="frm1" asp-action="Indexdemo">
+        <div class="col-md-4">
+            <select asp-for="ctrl1" onchange="myevent()">
+                <option>Select</option>
+                <option value="0">New Admission</option>
+                <option value="1">Promote Admission</option>
+            </select>
+            <input type="hidden" asp-for="ctrl1" />
+    </form>
+</div>
+<div id="div1">
+
+
+    <hr />
+
+</div>
+
+@if (ViewBag.display == "div2")
+{
+    <div id="2">
+
+        <partial name="listview" model=Model />
+    </div>
+}
+else if (ViewBag.display == "div1")
+{
+    <div>
+    @await Html.PartialAsync("createnew", Model)
+    </div>
+}
+
+@if(ViewBag.display=="div4")
+
+{
+    <h1 style="color:green">Admission Done Successfully </h1>
+    <h2>Admission ID is @ViewBag.ADID</h2>
+    <form id="frmad" target="_blank" asp-controller="Admission" asp-route-ID1="@ViewBag.ADID" asp-action="printreceipt">
+<button type="submit"  >print receipt</button>
+</form>
+}
+

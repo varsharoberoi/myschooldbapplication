@@ -1,0 +1,48 @@
+﻿@model IEnumerable<myschooldbapplication.Models.FeeType>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Feetype1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Feeyeartext)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalFees)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Feetype1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Feeyeartext)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalFees)
+            </td>
+            <td>
+
+                <a asp-action="Edit" asp-route-id="@item.FTId">Edit</a> |
+                <a asp-action="Terms" asp-route-id="@item.FTId">Terms List</a> |
+ 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

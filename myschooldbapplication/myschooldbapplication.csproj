@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>594aaacf-e6e4-448e-9102-e0585e3d0319</UserSecretsId>
+
+
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\_Layout.cshtml" />
+    <Content Remove="wwwroot\css\style1.css" />
+    <Content Remove="wwwroot\images\blank.gif" />
+    <Content Remove="wwwroot\images\body-rept.jpg" />
+    <Content Remove="wwwroot\images\bullet.gif" />
+    <Content Remove="wwwroot\images\copyright.gif" />
+    <Content Remove="wwwroot\images\footer.jpg" />
+    <Content Remove="wwwroot\images\header-top.jpg" />
+    <Content Remove="wwwroot\images\header.jpg" />
+    <Content Remove="wwwroot\images\img1.jpg" />
+    <Content Remove="wwwroot\images\menu-hov.jpg" />
+    <Content Remove="wwwroot\images\menubg.jpg" />
+    <Content Remove="wwwroot\images\more-btn.jpg" />
+    <Content Remove="wwwroot\images\section-bg.jpg" />
+    <Content Remove="wwwroot\images\sidebarbg.jpg" />
+    <Content Remove="wwwroot\images\Thumbs.db" />
+    <Content Remove="wwwroot\images\top-rept.jpg" />
+    <Content Remove="wwwroot\images\trans.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="ReflectionIT.Mvc.Paging" Version="3.4.0" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\User\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="wwwroot\css\style1.css" />
+    <None Include="wwwroot\images\blank.gif" />
+    <None Include="wwwroot\images\body-rept.jpg" />
+    <None Include="wwwroot\images\bullet.gif" />
+    <None Include="wwwroot\images\copyright.gif" />
+    <None Include="wwwroot\images\footer.jpg" />
+    <None Include="wwwroot\images\header-top.jpg" />
+    <None Include="wwwroot\images\header.jpg" />
+    <None Include="wwwroot\images\img1.jpg" />
+    <None Include="wwwroot\images\menu-hov.jpg" />
+    <None Include="wwwroot\images\menubg.jpg" />
+    <None Include="wwwroot\images\more-btn.jpg" />
+    <None Include="wwwroot\images\section-bg.jpg" />
+    <None Include="wwwroot\images\sidebarbg.jpg" />
+    <None Include="wwwroot\images\Thumbs.db" />
+    <None Include="wwwroot\images\top-rept.jpg" />
+    <None Include="wwwroot\images\trans.png" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,42 @@
+﻿@model myschooldbapplication.Models.Admissiopay
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Admissiopay</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PayDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Paystatus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Paystatus)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ad.AdId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdT)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdT.AdTId)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

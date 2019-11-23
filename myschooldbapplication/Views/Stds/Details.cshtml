@@ -1,0 +1,24 @@
+﻿@model myschooldbapplication.Models.Std
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Std</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Stname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stname)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.StdId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

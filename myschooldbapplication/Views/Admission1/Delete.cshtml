@@ -1,0 +1,63 @@
+﻿@model myschooldbapplication.Models.Admission1
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Admission1</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FeeYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FeeYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PaidAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Totalfees)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Totalfees)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pendingamt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pendingamt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FT)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FT.FTId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.St)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.St.ParentMobile)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Std)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Std.StdId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="AdId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

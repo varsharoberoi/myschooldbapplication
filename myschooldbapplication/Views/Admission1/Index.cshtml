@@ -1,0 +1,84 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<myschooldbapplication.Models.Admission1>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *,ReflectionIT.MVC.Paging
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<nav aria-label="pagination example">
+    @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model });
+</nav>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FeeYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaidAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Totalfees)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pendingamt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.St)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Std)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FeeYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Totalfees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pendingamt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FT.Feetype1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.St.StName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Std.Stname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdId)
+                </td>
+                <td>
+
+                    <a asp-action="Details" asp-route-id="@item.AdId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AdId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav aria-label="Employee example">
+    <vc:pager paging-list="@Model"></vc:pager>
+</nav>
